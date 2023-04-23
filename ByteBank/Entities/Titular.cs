@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ByteBank.Entities
+﻿namespace ByteBank.Entities
 {
     public class Titular
     {
@@ -12,6 +6,7 @@ namespace ByteBank.Entities
         public string Cpf { get; set; }
         public string Profissao { get; set; }
 
+        //Constructors - Construtores
         public Titular()
         {
         }

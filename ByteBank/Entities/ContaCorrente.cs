@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Channels;
-using System.Threading.Tasks;
-
+﻿
 namespace ByteBank.Entities
 {
     internal class ContaCorrente
@@ -12,32 +6,37 @@ namespace ByteBank.Entities
         public Titular Titular { get; set; }
         public int Agencia { get; set; }
         public int Conta { get; set; } 
-        public double Saldo { get; set; }
+        public double Saldo { get ; private set; }
+        public static int TotalContas { get; private set; }
 
-        // Construtores
+        // Construtores - Constructor
         public ContaCorrente()
         {
+            Saldo = 100;
+            TotalContas++;
         }
-        public ContaCorrente(Titular titular, int agencia, int conta, double saldo)
+        public ContaCorrente(Titular titular, int agencia, int conta, double saldo) : this()
         {
             Titular = titular;
             Agencia = agencia;
             Conta = conta;
-            Saldo = saldo;
         }
-
-        // ToString override
-        public override string ToString()
+        // Methods - Metodos
+        public void SetSaldo(double valor)
         {
-            return $"Titular: {Titular.Nome} \n"+
-                   $"CPF: {Titular.Cpf} \n" +
-                   $"Profissão: {Titular.Profissao} \n" +
-                   $"Agencia: {Agencia} \n" +
-                   $"Conta: {Conta} \n" +
-                   $"Saldo: {Saldo} \n";
+            if (valor < 0)
+            {
+                Console.WriteLine("Não possivel atribuir saldo negativo.");
+            }
+            else
+            {
+                Saldo = valor;
+            }
         }
-
-        //Metodos
+        public double GetSaldo()
+        {
+            return Saldo;
+        }
         public void Deposito(double valor)
         {
             Saldo += valor;
@@ -65,5 +64,18 @@ namespace ByteBank.Entities
                 conta.Deposito(valor);
             }
         }
+        // End Methods - Fim Metodos
+
+        // ToString override
+        public override string ToString()
+        {
+            return $"Titular: {Titular.Nome} \n" +
+                   $"CPF: {Titular.Cpf} \n" +
+                   $"Profissão: {Titular.Profissao} \n" +
+                   $"Agencia: {Agencia} \n" +
+                   $"Conta: {Conta} \n" +
+                   $"Saldo: {Saldo} \n";
+        }
+
     }
 }
