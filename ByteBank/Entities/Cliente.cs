@@ -1,16 +1,16 @@
 ﻿namespace ByteBank.Entities
 {
-    public class Titular
+    public class Cliente
     {
         public string Nome { get; set; }
         public string Cpf { get; set; }
         public string Profissao { get; set; }
 
         //Constructors - Construtores
-        public Titular()
+        public Cliente()
         {
         }
-        public Titular(string nome, string cpf, string profissao)
+        public Cliente(string nome, string cpf, string profissao)
         {
             Nome = nome;
             Cpf = cpf;

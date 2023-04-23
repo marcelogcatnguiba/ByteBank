@@ -1,21 +1,21 @@
-﻿
+﻿using System.Globalization;
+
 namespace ByteBank.Entities
 {
     internal class ContaCorrente
     {
-        public Titular Titular { get; set; }
+        public Cliente Titular { get; set; }
         public int Agencia { get; set; }
         public int Conta { get; set; } 
         public double Saldo { get ; private set; }
-        public static int TotalContas { get; private set; }
+        public static int TotalContas { get; private set; } // membros static carrega em memoria ao iniciar
 
         // Construtores - Constructor
         public ContaCorrente()
         {
             Saldo = 100;
-            TotalContas++;
         }
-        public ContaCorrente(Titular titular, int agencia, int conta, double saldo) : this()
+        public ContaCorrente(Cliente titular, int agencia, int conta, double saldo) : this() 
         {
             Titular = titular;
             Agencia = agencia;
@@ -33,10 +33,10 @@ namespace ByteBank.Entities
                 Saldo = valor;
             }
         }
-        public double GetSaldo()
-        {
-            return Saldo;
-        }
+        //public double GetSaldo()
+        //{
+        //    return Saldo;
+        //}
         public void Deposito(double valor)
         {
             Saldo += valor;
@@ -74,7 +74,7 @@ namespace ByteBank.Entities
                    $"Profissão: {Titular.Profissao} \n" +
                    $"Agencia: {Agencia} \n" +
                    $"Conta: {Conta} \n" +
-                   $"Saldo: {Saldo} \n";
+                   $"Saldo: R${Saldo.ToString("f2", CultureInfo.InvariantCulture)} \n";
         }
 
     }
