@@ -1,6 +1,6 @@
 ﻿using ByteBank.Entities;
 using ByteBank.Entities.Enum;
-
+#region
 //Cliente marcelo = new Cliente("Marcelo", "255.255.255", "TI");
 //Cliente maria = new Cliente("Maria", "255.300.255", "Dona de Casa");
 
@@ -10,14 +10,23 @@ using ByteBank.Entities.Enum;
 //Console.WriteLine(contaMarcelo);
 //Console.WriteLine(contaMaria);
 //Console.WriteLine(ContaCorrente.TotalContas);
+#endregion
 
-Funcionario pedro = new Funcionario("Pedro", "233.233.122-01", 1200,(Cargo)Enum.Parse(typeof(Cargo), "Producao"));
-Funcionario ana = new Diretor("Pedro", "233.233.122-01", 5000, (Cargo)Enum.Parse(typeof(Cargo), "Diretor"));
+Funcionario pedro = new Funcionario("Pedro", "233.233.122-01", 1200, (Cargo)Enum.Parse(typeof(Cargo), "Auxiliar"));
+Funcionario ana = new Diretor("Ana", "233.321.122-01", 6000, (Cargo)Enum.Parse(typeof(Cargo), "Diretor"));
+GetBonificacao total = new GetBonificacao();
 
 Console.WriteLine(pedro);
 Console.WriteLine(ana);
 
-GetBonificacao total = new GetBonificacao();
+Console.WriteLine("--------------------\n");
 
-Console.WriteLine(total.Registrar(pedro));
-Console.WriteLine(total.Registrar(ana));
+total.SomaBonificacao(pedro);
+total.SomaBonificacao(ana);
+Console.WriteLine($"Total de bonificação: R$ {total.TotalDeBonificacao} \n");
+
+pedro.AumentarSalario();
+ana.AumentarSalario();
+
+Console.WriteLine(pedro);
+Console.WriteLine(ana);

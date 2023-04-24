@@ -9,8 +9,8 @@ namespace ByteBank.Entities.Enum
     public enum Cargo
     {
         Diretor,
-        Gestor ,
-        RH,
-        Producao 
+        GerenteDeContas,
+        Designer,
+        Auxiliar 
     }
 }

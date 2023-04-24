@@ -9,9 +9,9 @@ namespace ByteBank.Entities
     internal class GetBonificacao
     {
         public double TotalDeBonificacao { get; private set; }
-        public double Registrar(Funcionario funcionario)
+        public double SomaBonificacao(Funcionario funcionario)
         {
-            return this.TotalDeBonificacao = funcionario.GetBonificacao();
+            return TotalDeBonificacao += funcionario.GetBonificacao();
         }
 
     }

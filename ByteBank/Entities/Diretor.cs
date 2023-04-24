@@ -11,11 +11,16 @@ namespace ByteBank.Entities
     {
         public Diretor(string name, string cpf, double salario, Cargo cargo) : base(name, cpf, salario, cargo)
         {
-
+            
         }
         public override double GetBonificacao()
         {
-            return this.Salario; // 100% do salario
+            return this.Salario + base.GetBonificacao(); // 100% do salario
+        }
+
+        public override void AumentarSalario()
+        {
+            Salario += Salario * 0.15;
         }
     }
 }
