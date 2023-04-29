@@ -5,17 +5,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ByteBank.Entities.Enum;
+using ByteBank.Service;
 
 namespace ByteBank.Entities
 {
-    public class Funcionario
+    public abstract class Funcionario : IAutenticar
     {
+        // Prop
         public string Nome { get; set; }
         public string Cpf { get; protected set; }
         public double Salario { get; protected set; }
         public Cargo Cargo { get; set; }
+        public string Login { get ; set ; }
+        public string Senha { get ; set; }
 
-        public static int TotalFuncionarios { get; private set; }
+        public static int TotalFuncionarios { get; protected set; }
+
         //Constructor - Construtor
 
         public Funcionario(string nome, string cpf, double salario, Cargo cargo)
@@ -28,14 +33,22 @@ namespace ByteBank.Entities
         }
 
         //Methods - Metodos
-        public virtual double GetBonificacao()
-        {
-            return Salario * 0.2;
-        }
+        public abstract double GetBonificacao();
 
-        public virtual void AumentarSalario()
+        public abstract void AumentarSalario();
+
+        public bool Autenticar(string login, string senha)
         {
-            Salario += Salario * 0.1;
+            if (Login == login & Senha == senha)
+            {
+                Console.WriteLine("Boas vindas ao sistema !!.");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Senha invalida.");
+                return false;
+            }
         }
 
         //Overrride
@@ -47,5 +60,7 @@ namespace ByteBank.Entities
                    $"Salario: R$ {Salario.ToString("F2", CultureInfo.InvariantCulture)} \n" +
                    $"Cargo: {Cargo} \n";
         }
+
+  
     }
 }
