@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ByteBank.Entities
+namespace ByteBank.Entities.Funcionarios
 {
     internal class GerenteDeContas : Funcionario, IAutenticar
     {
@@ -15,17 +15,10 @@ namespace ByteBank.Entities
 
         }
 
-        public string Login { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Senha { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public override void AumentarSalario()
         {
             Salario += Salario * 0.05;
-        }
-
-        public bool Autenticar(string login, string senha)
-        {
-            throw new NotImplementedException();
         }
 
         public override double GetBonificacao()

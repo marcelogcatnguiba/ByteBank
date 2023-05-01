@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ByteBank.Entities
+namespace ByteBank.Entities.Funcionarios
 {
     internal class Designer : Funcionario
     {

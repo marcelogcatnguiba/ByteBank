@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using ByteBank.Entities.Enum;
 using ByteBank.Service;
 
-namespace ByteBank.Entities
+namespace ByteBank.Entities.Funcionarios
 {
     public abstract class Funcionario : IAutenticar
     {
@@ -16,8 +16,8 @@ namespace ByteBank.Entities
         public string Cpf { get; protected set; }
         public double Salario { get; protected set; }
         public Cargo Cargo { get; set; }
-        public string Login { get ; set ; }
-        public string Senha { get ; set; }
+        public string Login { get; set; }
+        public string Senha { get; set; }
 
         public static int TotalFuncionarios { get; protected set; }
 
@@ -61,6 +61,6 @@ namespace ByteBank.Entities
                    $"Cargo: {Cargo} \n";
         }
 
-  
+
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System.Globalization;
+using ByteBank.Entities;
+using ByteBank.Exceptions;
 
 namespace ByteBank.Entities
 {
@@ -6,37 +8,41 @@ namespace ByteBank.Entities
     {
         public Cliente Titular { get; set; }
         public int Agencia { get; set; }
-        public int Conta { get; set; } 
-        public double Saldo { get ; private set; }
+        public int Conta { get; set; }
+        public double Saldo { get; private set; } = 100;
         public static int TotalContas { get; private set; } // membros static carrega em memoria ao iniciar
 
         // Construtores - Constructor
-        public ContaCorrente()
+        public ContaCorrente(Cliente titular, int agencia, int conta, double saldo)
         {
-            Saldo = 100;
-        }
-        public ContaCorrente(Cliente titular, int agencia, int conta, double saldo) : this() 
-        {
-            Titular = titular;
-            Agencia = agencia;
-            Conta = conta;
+
+            if (agencia <= 0 || conta <= 0)
+            {
+                string erro = agencia <= 0 ? "agencia" : "conta";
+                throw new ArgumentException($"Não possivel agencia ou conta menores que 0. Parametro com erro: {erro}");
+            }
+            else
+            {
+                Titular = titular;
+                Agencia = agencia;
+                Conta = conta;
+                Saldo = saldo;
+            }
+
         }
         // Methods - Metodos
         public void SetSaldo(double valor)
         {
             if (valor < 0)
             {
-                Console.WriteLine("Não possivel atribuir saldo negativo.");
+                throw new ArgumentException("Não possivel colocar valores negativos.");
             }
             else
             {
                 Saldo = valor;
             }
         }
-        //public double GetSaldo()
-        //{
-        //    return Saldo;
-        //}
+
         public void Deposito(double valor)
         {
             Saldo += valor;
@@ -51,15 +57,15 @@ namespace ByteBank.Entities
             }
             else
             {
-                Console.WriteLine("Saldo insuficiente.");
-                return false;
+                throw new SaldoInsuficienteException("Saldo insuficiente para essa transação.");
+
             }
         }
 
         public void Tranferencia(double valor, ContaCorrente conta)
         {
             bool teste = Saque(valor);
-            if(teste == true)
+            if (teste == true)
             {
                 conta.Deposito(valor);
             }
