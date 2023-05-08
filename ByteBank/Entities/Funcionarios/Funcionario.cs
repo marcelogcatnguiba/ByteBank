@@ -9,15 +9,14 @@ using ByteBank.Service;
 
 namespace ByteBank.Entities.Funcionarios
 {
-    public abstract class Funcionario : IAutenticar
+    public abstract class Funcionario
     {
         // Prop
         public string Nome { get; set; }
         public string Cpf { get; protected set; }
         public double Salario { get; protected set; }
         public Cargo Cargo { get; set; }
-        public string Login { get; set; }
-        public string Senha { get; set; }
+
 
         public static int TotalFuncionarios { get; protected set; }
 
@@ -37,19 +36,6 @@ namespace ByteBank.Entities.Funcionarios
 
         public abstract void AumentarSalario();
 
-        public bool Autenticar(string login, string senha)
-        {
-            if (Login == login & Senha == senha)
-            {
-                Console.WriteLine("Boas vindas ao sistema !!.");
-                return true;
-            }
-            else
-            {
-                Console.WriteLine("Senha invalida.");
-                return false;
-            }
-        }
 
         //Overrride
 

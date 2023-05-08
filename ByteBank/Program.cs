@@ -19,19 +19,7 @@ using ByteBank.Service;
 //Console.WriteLine(ana.Autenticar("Ana", "999"));
 #endregion
 
-
-
-try
-{
     Cliente marcos = new Cliente("Marcos", "222.444.555-22", "Tecelao");
     ContaCorrente contaMarcos = new ContaCorrente(marcos, 0, 100, 2000);
     contaMarcos.Saque(3000);
-}
-catch(SaldoInsuficienteException ex)
-{
-    Console.WriteLine(ex.Message);
-}
-catch(ArgumentException ex)
-{
-    Console.WriteLine(ex.Message);
-}
+

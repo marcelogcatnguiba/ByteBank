@@ -1,76 +1,64 @@
 ﻿using System.Globalization;
+using System.Net.Http.Headers;
 using ByteBank.Entities;
 using ByteBank.Exceptions;
 
 namespace ByteBank.Entities
 {
-    internal class ContaCorrente
+    internal sealed class ContaCorrente
     {
         public Cliente Titular { get; set; }
-        public int Agencia { get; set; }
-        public int Conta { get; set; }
+        public int Agencia { get; private set; }
+        public int Conta { get; private set; }
         public double Saldo { get; private set; } = 100;
         public static int TotalContas { get; private set; } // membros static carrega em memoria ao iniciar
 
-        // Construtores - Constructor
+
         public ContaCorrente(Cliente titular, int agencia, int conta, double saldo)
         {
-
-            if (agencia <= 0 || conta <= 0)
-            {
-                string erro = agencia <= 0 ? "agencia" : "conta";
-                throw new ArgumentException($"Não possivel agencia ou conta menores que 0. Parametro com erro: {erro}");
-            }
-            else
-            {
-                Titular = titular;
-                Agencia = agencia;
-                Conta = conta;
-                Saldo = saldo;
-            }
-
+            Validate(agencia, conta, saldo);
+            Titular = titular;
         }
-        // Methods - Metodos
-        public void SetSaldo(double valor)
-        {
-            if (valor < 0)
-            {
-                throw new ArgumentException("Não possivel colocar valores negativos.");
-            }
-            else
-            {
-                Saldo = valor;
-            }
-        }
+
 
         public void Deposito(double valor)
         {
+            ContaCorrenteException.When(valor < 0,
+                "Valor informado incorreto");
+
             Saldo += valor;
         }
 
-        public bool Saque(double valor)
+        public void Saque(double valor)
         {
-            if (valor <= Saldo)
-            {
-                Saldo -= valor;
-                return true;
-            }
-            else
-            {
-                throw new SaldoInsuficienteException("Saldo insuficiente para essa transação.");
+            ContaCorrenteException.When(valor > Saldo,
+                "Saldo insuficiente para esta operação.");
 
-            }
+            Saldo -= valor;
         }
 
         public void Tranferencia(double valor, ContaCorrente conta)
         {
-            bool teste = Saque(valor);
-            if (teste == true)
-            {
-                conta.Deposito(valor);
-            }
+            Saque(valor);
+            conta.Deposito(valor);
         }
-        // End Methods - Fim Metodos
+
+        private void Validate(int agencia, int conta, double saldo)
+        {
+            ContaCorrenteException.When(agencia < 0,
+                "Numero de agencia invalida.");
+
+            ContaCorrenteException.When(conta < 0,
+                "Numero de conta invalida.");
+
+            ContaCorrenteException.When(Saldo < 0,
+                "Saldo invalido, não pode ser negativo.");
+
+            Agencia = agencia;
+            Conta = conta;
+            Saldo = saldo;
+        }
+
 
         // ToString override
         public override string ToString()

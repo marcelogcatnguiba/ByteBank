@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ByteBank.Entities.Funcionarios
 {
-    internal class GerenteDeContas : Funcionario, IAutenticar
+    internal class GerenteDeContas : Funcionario
     {
         public GerenteDeContas(string name, string cpf, double salario, Cargo cargo) : base(name, cpf, salario, cargo)
         {
