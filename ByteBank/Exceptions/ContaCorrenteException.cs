@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ByteBank.Exceptions
 {
-    internal class ContaCorrenteException : Exception
+    public class ContaCorrenteException : Exception
     {
         public ContaCorrenteException(string error) : base(error)
         {

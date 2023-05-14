@@ -1,23 +1,20 @@
-﻿using System.Globalization;
-using System.Net.Http.Headers;
-using ByteBank.Entities;
-using ByteBank.Exceptions;
+﻿using ByteBank.Exceptions;
+using System.Globalization;
 
 namespace ByteBank.Entities
 {
-    internal sealed class ContaCorrente
+    public sealed class ContaCorrente
     {
-        public Cliente Titular { get; set; }
         public int Agencia { get; private set; }
         public int Conta { get; private set; }
         public double Saldo { get; private set; } = 100;
         public static int TotalContas { get; private set; } // membros static carrega em memoria ao iniciar
 
-
-        public ContaCorrente(Cliente titular, int agencia, int conta, double saldo)
+        private Cliente _cliente { get; set; }
+        public ContaCorrente(Cliente cliente, int agencia, int conta, double saldo)
         {
             Validate(agencia, conta, saldo);
-            Titular = titular;
+            _cliente = cliente;
         }
 
 
@@ -51,7 +48,7 @@ namespace ByteBank.Entities
             ContaCorrenteException.When(conta < 0,
                 "Numero de conta invalida.");
 
-            ContaCorrenteException.When(Saldo < 0,
+            ContaCorrenteException.When(saldo < 0,
                 "Saldo invalido, não pode ser negativo.");
 
             Agencia = agencia;
@@ -63,9 +60,9 @@ namespace ByteBank.Entities
         // ToString override
         public override string ToString()
         {
-            return $"Titular: {Titular.Nome} \n" +
-                   $"CPF: {Titular.Cpf} \n" +
-                   $"Profissão: {Titular.Profissao} \n" +
+            return $"Titular: {_cliente.Nome} \n" +
+                   $"CPF: {_cliente.Cpf} \n" +
+                   $"Profissão: {_cliente.Profissao} \n" +
                    $"Agencia: {Agencia} \n" +
                    $"Conta: {Conta} \n" +
                    $"Saldo: R${Saldo.ToString("f2", CultureInfo.InvariantCulture)} \n";
