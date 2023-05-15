@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ByteBank.Entities.Enum
 {
-    public enum Cargo
+    public enum Cargo : int
     {
-        Diretor,
-        GerenteDeContas,
-        Designer,
-        Auxiliar 
+        Diretor = 0,
+        GerenteDeContas = 1,
+        Designer = 2,
+        Auxiliar = 3 
     }
 }

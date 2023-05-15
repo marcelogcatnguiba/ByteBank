@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ByteBank.Entities.Enum;
+using ByteBank.Interface;
 using ByteBank.Service;
 
 namespace ByteBank.Entities.Funcionarios
@@ -36,6 +37,10 @@ namespace ByteBank.Entities.Funcionarios
 
         public abstract void AumentarSalario();
 
+        public void SetSalario(double value)
+        {
+            Salario += value;
+        }
 
         //Overrride
 

@@ -1,4 +1,5 @@
 ﻿using ByteBank.Entities.Enum;
+using ByteBank.Interface;
 using ByteBank.Service;
 using System;
 using System.Collections.Generic;
