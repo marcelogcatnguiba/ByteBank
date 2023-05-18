@@ -1,20 +1,16 @@
 ﻿using ByteBank.Entities.Enum;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ByteBank.Entities.Funcionarios
 {
-    internal class Auxiliar : Funcionario
+    public sealed class Auxiliar : Funcionario
     {
-        public Auxiliar(string nome, string cpf, double salario, Cargo cargo) : base(nome, cpf, salario, cargo)
+        public Auxiliar(int id, string nome, string cpf, double salario, Cargo cargo)
+            : base(id, nome, cpf, salario, cargo)
         {
 
         }
 
-        public override double GetBonificacao()
+        public override double ReceberBonificacao()
         {
             return Salario *= 0.2;
         }

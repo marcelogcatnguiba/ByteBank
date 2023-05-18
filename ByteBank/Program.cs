@@ -19,12 +19,12 @@ using ByteBank.Service;
 //Console.WriteLine(ana.Autenticar("Ana", "999"));
 #endregion
 
-//Cliente marcos = new Cliente("Marcos", "222.444.555-22", "Tecelao");
-//ContaCorrente contaMarcos = new ContaCorrente(marcos, 0, 100, 2000);
-//contaMarcos.Saque(3000);
+Cliente marcos = new Cliente("Marcos", "222.444.555-22", "Tecelao");
+ContaCorrente contaMarcos = new ContaCorrente(marcos, 0, 100, 2000);
+contaMarcos.Saque(3000);
 
-Funcionario ana = new Diretor("Ana", "233.321.122-01", 6000, (Cargo)Enum.Parse(typeof(Cargo), "Diretor"));
-IBonificacao teste = new GerenciadorBonifica();
+Funcionario ana = new Diretor(1, "Ana", "233.321.122-01", 6000, (Cargo)Enum.Parse(typeof(Cargo), "Diretor"));
+IBonificacao teste = new BonificacaoService();
 teste.Bonificacao(ana);
 Console.WriteLine(ana);
 

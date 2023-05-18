@@ -1,39 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ByteBank.Entities.Enum;
+using ByteBank.Exceptions;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ByteBank.Entities.Enum;
-using ByteBank.Interface;
-using ByteBank.Service;
+
 
 namespace ByteBank.Entities.Funcionarios
 {
     public abstract class Funcionario
     {
         // Prop
-        public string Nome { get; set; }
+        public int Id { get; private set; }
+        public string Nome { get; private set; }
         public string Cpf { get; protected set; }
         public double Salario { get; protected set; }
-        public Cargo Cargo { get; set; }
+        public Cargo Cargo { get; private set; }
 
 
         public static int TotalFuncionarios { get; protected set; }
 
         //Constructor - Construtor
 
-        public Funcionario(string nome, string cpf, double salario, Cargo cargo)
+        public Funcionario(int id, string nome, string cpf, double salario, Cargo cargo)
         {
-            Nome = nome;
-            Cpf = cpf;
-            Salario = salario;
+            Valida(id, nome, cpf, salario);
             Cargo = cargo;
             TotalFuncionarios++;
         }
 
         //Methods - Metodos
-        public abstract double GetBonificacao();
+        public abstract double ReceberBonificacao();
 
         public abstract void AumentarSalario();
 
@@ -42,6 +36,25 @@ namespace ByteBank.Entities.Funcionarios
             Salario += value;
         }
 
+        private void Valida(int id, string nome, string cpf, double salario)
+        {
+            FuncionarioException.When(id < 0,
+                "Valor de id não permitido");
+
+            FuncionarioException.When(string.IsNullOrEmpty(nome),
+                "Nome não pode ser vazio ou nulo");
+
+            FuncionarioException.When(string.IsNullOrEmpty(cpf),
+                "Cpf não pode ser vazio ou nulo");
+
+            FuncionarioException.When(salario < 0,
+                "Salario não pode ser negativo");
+
+            Nome = nome;
+            Cpf = cpf;
+            Salario = salario;
+            
+        }
         //Overrride
 
         public override string ToString()

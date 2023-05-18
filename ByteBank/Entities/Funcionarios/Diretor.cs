@@ -1,23 +1,17 @@
 ﻿using ByteBank.Entities.Enum;
-using ByteBank.Interface;
-using ByteBank.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ByteBank.Entities.Funcionarios
 {
     public class Diretor : Funcionario
     {
 
-        public Diretor(string name, string cpf, double salario, Cargo cargo) : base(name, cpf, salario, cargo)
+        public Diretor(int id, string name, string cpf, double salario, Cargo cargo)
+            : base(id, name, cpf, salario, cargo)
         {
 
         }
 
-        public override double GetBonificacao()
+        public override double ReceberBonificacao()
         {
             return Salario *= 0.5;
         }
